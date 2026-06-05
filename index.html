@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absolute PT South Bay — Concierge Physical Therapy with Dr. Uriah</title>
+    <meta name="description" content="Personalized concierge physical therapy delivered to your home across South Bay. Dr. Uriah J. Maimone, DPT — orthopedic, sports, and rehabilitation expert." />
+    <script type="module" crossorigin src="/assets/index-CNKAHpfr.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Nr38skHY.css">
+
+    <!-- Personalized welcome banner styles -->
+    <style>
+      /* Personalized welcome banner — shown on landing page only */
+      #personalized-welcome {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+        background: rgba(245, 241, 232, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1.5px solid rgba(26, 122, 74, 0.2);
+        border-radius: 24px;
+        padding: 2.5rem 3rem;
+        max-width: 540px;
+        width: calc(100% - 2rem);
+        text-align: center;
+        box-shadow:
+          0 25px 50px -12px rgba(15, 26, 18, 0.25),
+          0 10px 20px -5px rgba(15, 26, 18, 0.15);
+        animation: pwFadeIn 0.6s ease-out;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+
+      @keyframes pwFadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -45%);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      #personalized-welcome.pw-closing {
+        animation: pwFadeOut 0.4s ease-in forwards;
+      }
+
+      @keyframes pwFadeOut {
+        from {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+        to {
+          opacity: 0;
+          transform: translate(-50%, -55%);
+        }
+      }
+
+      #personalized-welcome .pw-eyebrow {
+        color: #1a7a4a;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 0.9rem;
+      }
+
+      #personalized-welcome .pw-title {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-weight: 900;
+        font-size: clamp(1.75rem, 4vw, 2.4rem);
+        color: #0f1a12;
+        line-height: 1.1;
+        margin: 0 0 0.6rem;
+      }
+
+      #personalized-welcome .pw-title .pw-accent {
+        color: #1a7a4a;
+        font-style: italic;
+      }
+
+      #personalized-welcome .pw-body {
+        color: #566059;
+        font-size: 1rem;
+        line-height: 1.7;
+        margin: 0 0 1.5rem;
+      }
+
+      #personalized-welcome .pw-actions {
+        display: flex;
+        gap: 0.7rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      #personalized-welcome .pw-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.85rem 1.6rem;
+        border-radius: 50px;
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        border: 0;
+        transition: transform 0.15s ease, background 0.15s ease;
+        font-family: inherit;
+      }
+
+      #personalized-welcome .pw-btn-primary {
+        background: #1a7a4a;
+        color: #ffffff;
+      }
+
+      #personalized-welcome .pw-btn-primary:hover {
+        background: #145c38;
+        transform: translateY(-1px);
+      }
+
+      #personalized-welcome .pw-btn-secondary {
+        background: transparent;
+        color: #1a7a4a;
+        border: 1.5px solid rgba(26, 122, 74, 0.3);
+      }
+
+      #personalized-welcome .pw-btn-secondary:hover {
+        background: rgba(26, 122, 74, 0.06);
+      }
+
+      #personalized-welcome .pw-close {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        padding: 0.4rem;
+        color: #566059;
+        line-height: 0;
+        border-radius: 50%;
+        transition: background 0.15s ease;
+      }
+
+      #personalized-welcome .pw-close:hover {
+        background: rgba(15, 26, 18, 0.08);
+        color: #0f1a12;
+      }
+
+      #personalized-welcome-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 26, 18, 0.45);
+        z-index: 9998;
+        animation: pwFadeIn 0.4s ease-out;
+      }
+
+      #personalized-welcome-overlay.pw-closing {
+        animation: pwOverlayFadeOut 0.4s ease-in forwards;
+      }
+
+      @keyframes pwOverlayFadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+      }
+
+      @media (max-width: 480px) {
+        #personalized-welcome {
+          padding: 2rem 1.5rem;
+        }
+      }
+    </style>
+    <style>
+      /* Treatment cards: shift photos down on desktop (Parkinson's onward) */
+      /* Each card is rendered as <article id="<treatment-id>">. We override the */
+      /* inline style="object-position: center" with !important on >= 768px only. */
+      @media (min-width: 768px) {
+        article#parkinsons > img,
+        article#medical-exercise > img,
+        article#strength-conditioning > img,
+        article#weight-training > img,
+        article#sport-massage > img,
+        article#biomechanics > img,
+        article#modalities > img,
+        article#pain-management > img {
+          object-position: center 25% !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <!-- Personalized welcome banner — only shown once on first visit to landing page -->
+    <script>
+      (function () {
+        // Show only on the homepage, and only once per session
+        function shouldShowWelcome() {
+          if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+            return false;
+          }
+          try {
+            return !sessionStorage.getItem('pw-dismissed');
+          } catch (e) {
+            return true;
+          }
+        }
+
+        function dismissWelcome() {
+          var banner = document.getElementById('personalized-welcome');
+          var overlay = document.getElementById('personalized-welcome-overlay');
+          if (banner) banner.classList.add('pw-closing');
+          if (overlay) overlay.classList.add('pw-closing');
+          try {
+            sessionStorage.setItem('pw-dismissed', '1');
+          } catch (e) {}
+          setTimeout(function () {
+            if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+            if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          }, 400);
+        }
+
+        function showWelcome() {
+          if (!shouldShowWelcome()) return;
+          if (document.getElementById('personalized-welcome')) return;
+
+          var overlay = document.createElement('div');
+          overlay.id = 'personalized-welcome-overlay';
+          overlay.addEventListener('click', dismissWelcome);
+
+          var banner = document.createElement('div');
+          banner.id = 'personalized-welcome';
+          banner.setAttribute('role', 'dialog');
+          banner.setAttribute('aria-labelledby', 'pw-title');
+          banner.innerHTML = [
+            '<button class="pw-close" aria-label="Close">',
+            '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>',
+            '</button>',
+            '<div class="pw-eyebrow">Welcome</div>',
+            '<h2 class="pw-title" id="pw-title">Care That\'s <span class="pw-accent">Personalized</span> to You</h2>',
+            '<p class="pw-body">No cookie-cutter plans. Dr. Uriah builds every program around <em>your</em> body, <em>your</em> goals, and <em>your</em> home — combining 20+ years of elite-level expertise with one-on-one attention from your first session to your full recovery.</p>',
+            '<div class="pw-actions">',
+            '<a class="pw-btn pw-btn-primary" href="/contact">Book Free Consultation</a>',
+            '<button class="pw-btn pw-btn-secondary" type="button">Explore the Site</button>',
+            '</div>'
+          ].join('');
+
+          banner.querySelector('.pw-close').addEventListener('click', dismissWelcome);
+          banner.querySelector('.pw-btn-secondary').addEventListener('click', dismissWelcome);
+
+          // Allow Escape to dismiss
+          var escHandler = function (e) {
+            if (e.key === 'Escape') {
+              dismissWelcome();
+              document.removeEventListener('keydown', escHandler);
+            }
+          };
+          document.addEventListener('keydown', escHandler);
+
+          document.body.appendChild(overlay);
+          document.body.appendChild(banner);
+        }
+
+        // Wait for the React app to mount, then show
+        function waitForApp() {
+          var root = document.getElementById('root');
+          if (root && root.children.length > 0) {
+            // Give the page a moment to settle visually
+            setTimeout(showWelcome, 600);
+          } else {
+            setTimeout(waitForApp, 100);
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', waitForApp);
+        } else {
+          waitForApp();
+        }
+      })();
+    </script>
+
+    <!-- Static form for Netlify Forms detection (hidden, never shown to users) -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="fullName" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="visitType" />
+      <input type="text" name="areaOfConcern" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <!-- Runtime patch: hijack the broken contact form submission and send to Netlify -->
+    <script>
+      (function () {
+        function encode(data) {
+          return Object.keys(data)
+            .map(function (k) {
+              return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
+            })
+            .join('&');
+        }
+
+        document.addEventListener('submit', function (e) {
+          var form = e.target;
+          if (!form || form.tagName !== 'FORM') return;
+
+          // Only intercept forms that look like the contact form (has the "Send Message" button)
+          var btn = form.querySelector('button[type="submit"]');
+          if (!btn || !/send\s*message/i.test(btn.textContent || '')) return;
+
+          // Don't intercept the hidden static form
+          if (form.hasAttribute('hidden')) return;
+
+          // Collect values from inputs/selects/textareas in document order
+          var fields = form.querySelectorAll('input, select, textarea');
+          if (fields.length < 5) return; // safety check — bail if structure has changed
+
+          var data = {
+            'form-name': 'contact',
+            'fullName':       (fields[0] && fields[0].value) || '',
+            'email':          (fields[1] && fields[1].value) || '',
+            'phone':          (fields[2] && fields[2].value) || '',
+            'visitType':      (fields[3] && fields[3].value) || '',
+            'areaOfConcern':  (fields[4] && fields[4].value) || '',
+            'message':        (fields[5] && fields[5].value) || ''
+          };
+
+          // POST to Netlify in the background — React still shows its "Thanks" message
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encode(data)
+          }).catch(function (err) {
+            console.error('Form submission failed:', err);
+          });
+        }, true); // capture phase — runs before React's preventDefault
+      })();
+    </script>
+  </body>
+</html>
