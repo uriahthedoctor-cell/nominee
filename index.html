@@ -178,15 +178,28 @@
       /* Each card is rendered as <article id="<treatment-id>">. We override the */
       /* inline style="object-position: center" with !important on >= 768px only. */
       @media (min-width: 768px) {
+        /* Parkinson's & Medical Exercise: moderate shift down */
         article#parkinsons > img,
-        article#medical-exercise > img,
-        article#strength-conditioning > img,
-        article#weight-training > img,
-        article#sport-massage > img,
-        article#biomechanics > img,
-        article#modalities > img,
-        article#pain-management > img {
+        article#medical-exercise > img {
           object-position: center 25% !important;
+        }
+        /* Weight Training: unchanged at 85% */
+        article#weight-training > img {
+          object-position: center 85% !important;
+        }
+        /* S&C and Sport Massage: bumped up 20% → 65% */
+        article#strength-conditioning > img,
+        article#sport-massage > img {
+          object-position: center 65% !important;
+        }
+        /* Modalities: bumped up 20% → 60% */
+        article#modalities > img {
+          object-position: center 60% !important;
+        }
+        /* Biomechanics and Pain Management: still at bottom */
+        article#biomechanics > img,
+        article#pain-management > img {
+          object-position: center bottom !important;
         }
       }
     </style>
@@ -283,61 +296,66 @@
       })();
     </script>
 
-    <!-- Static form for Netlify Forms detection (hidden, never shown to users) -->
-    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="fullName" />
-      <input type="email" name="email" />
-      <input type="tel" name="phone" />
-      <input type="text" name="visitType" />
-      <input type="text" name="areaOfConcern" />
-      <textarea name="message"></textarea>
-    </form>
+    <!--
+      Contact form submission handler.
 
-    <!-- Runtime patch: hijack the broken contact form submission and send to Netlify -->
+      The compiled React form has a broken submit handler (it just shows
+      "Thanks" without sending anything). This script intercepts the submit,
+      pulls values from the form fields, and POSTs them to Formspree, which
+      then forwards them to your email.
+
+      ===========================================================================
+      SETUP (do this once, takes 2 minutes):
+        1) Sign up at https://formspree.io  (free tier: 50 submissions/month)
+        2) Create a new form → name it "Contact"
+        3) Copy your form endpoint URL — it looks like:
+           https://formspree.io/f/abcdwxyz
+        4) Replace YOUR_FORMSPREE_ID below with your actual ID (the part after /f/)
+      ===========================================================================
+    -->
     <script>
       (function () {
-        function encode(data) {
-          return Object.keys(data)
-            .map(function (k) {
-              return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-            })
-            .join('&');
-        }
+        // ---- CONFIG -----------------------------------------------------------
+        var FORMSPREE_ID = 'YOUR_FORMSPREE_ID'; // <-- REPLACE THIS
+        // -----------------------------------------------------------------------
 
         document.addEventListener('submit', function (e) {
           var form = e.target;
           if (!form || form.tagName !== 'FORM') return;
 
-          // Only intercept forms that look like the contact form (has the "Send Message" button)
+          // Only intercept the contact form (button text contains "Send Message")
           var btn = form.querySelector('button[type="submit"]');
           if (!btn || !/send\s*message/i.test(btn.textContent || '')) return;
 
-          // Don't intercept the hidden static form
-          if (form.hasAttribute('hidden')) return;
-
-          // Collect values from inputs/selects/textareas in document order
+          // Collect field values in document order (the React form has no
+          // name attributes, so we read positionally).
           var fields = form.querySelectorAll('input, select, textarea');
-          if (fields.length < 5) return; // safety check — bail if structure has changed
+          if (fields.length < 5) return; // structure changed — bail safely
 
           var data = {
-            'form-name': 'contact',
-            'fullName':       (fields[0] && fields[0].value) || '',
-            'email':          (fields[1] && fields[1].value) || '',
-            'phone':          (fields[2] && fields[2].value) || '',
-            'visitType':      (fields[3] && fields[3].value) || '',
-            'areaOfConcern':  (fields[4] && fields[4].value) || '',
-            'message':        (fields[5] && fields[5].value) || ''
+            'Full Name':       (fields[0] && fields[0].value) || '',
+            'Email':           (fields[1] && fields[1].value) || '',
+            'Phone':           (fields[2] && fields[2].value) || '',
+            'Visit Type':      (fields[3] && fields[3].value) || '',
+            'Area of Concern': (fields[4] && fields[4].value) || '',
+            'Message':         (fields[5] && fields[5].value) || ''
           };
 
-          // POST to Netlify in the background — React still shows its "Thanks" message
-          fetch('/', {
+          if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+            console.warn('[contact-form] Formspree ID not configured. Submission discarded. ' +
+                         'See setup instructions in index.html.');
+            return;
+          }
+
+          // Background POST — React still shows its "Thanks" message.
+          fetch('https://formspree.io/f/' + FORMSPREE_ID, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: encode(data)
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
           }).catch(function (err) {
-            console.error('Form submission failed:', err);
+            console.error('[contact-form] Submission failed:', err);
           });
-        }, true); // capture phase — runs before React's preventDefault
+        }, true);
       })();
     </script>
   </body>
